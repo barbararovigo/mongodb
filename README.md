@@ -6,37 +6,37 @@ Exercício 1 - Aquecendo com os pets
 `db.pets.insert({name:"Frodo", species:"Hamster"})`  
 
 2.Faça uma contagem dos pets na coleção  
->db.pets.count()  
+`db.pets.count()`   
 
 3.Retorne apenas um elemento o método prático possível  
->db.pets.findOne()  
+`db.pets.findOne()`  
 
 4.Identifique o ID para o Gato Kilha.  
->db.pets.find({"name":"Kilha"})  
+`db.pets.find({"name":"Kilha"})`  
 
 5.Faça uma busca pelo ID e traga o Hamster Mike  
->db.pets.find({"_id":ObjectId("5e8de8097740391e7baf2d00")})  
+`db.pets.find({"_id":ObjectId("5e8de8097740391e7baf2d00")})`  
 
 6.Use o find para trazer todos os Hamsters  
->db.pets.find({"species":"Hamster"})  
+`db.pets.find({"species":"Hamster"})`  
 
 7.Use o find para listar todos os pets com nome Mike  
->db.pets.find({"name":"Mike"})  
+`db.pets.find({"name":"Mike"})`   
 
 8.Liste apenas o documento que é um Cachorro chamado Mike  
->db.pets.find({"name":"Mike","species":"Cachorro"})  
+`db.pets.find({"name":"Mike","species":"Cachorro"})`  
 
 Exercício2 – Mama mia!  
 
 1.Liste/Conte todas as pessoas que tem exatamente 99 anos. Você pode usar um count para indicar a quantidade.  
-Listar: >db.italians.find({"age":99})  
-Contar: >db.italians.find({"age":99}).count()  
+Listar: `db.italians.find({"age":99})`  
+Contar: `db.italians.find({"age":99}).count()`  
   
 2.Identifique quantas pessoas são elegíveis atendimento prioritário (pessoas com mais de 65 anos)  
->db.italians.find({"age":{"$gt":65}}).count()  
+`db.italians.find({"age":{"$gt":65}}).count()`  
   
 3.Identifique todos os jovens (pessoas entre 12 a 18 anos).  
->db.italians.find({"age":{"$gt":11, "$lt":19}}).count()  
+`db.italians.find({"age":{"$gt":11, "$lt":19}}).count()`  
   
 4.Identifique quantas pessoas tem gatos, quantas tem cachorro e quantas não tem nenhum dos dois  
 5.Liste/Conte todas as pessoas acima de 60 anos que tenham gato  
