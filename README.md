@@ -63,27 +63,30 @@ Contagem: `db.italians.find({"dog":{$exists:true,$ne:null},"age":{"$gte":12, "$l
 10.Projete apenas o nome e sobrenome das pessoas com tipo de sangue de fator RH negativo 
 `db.italians.find({"bloodType":{"$in":["AB-","A-", "O-","B-"]}},{firstname:1,surname:1,_id:0})`  
 
-11.Projete apenas os animais dos italianos. Devem ser listados os animais com nome e idade. Não mostre o identificado do mongo  (ObjectId) 
- `db.italians.find( {"$or":[ {dog:{$exists:true}} , {cat:{$exists:true}}]} ,{"dog.name":1,"dog.age":1,"cat.name":1,"cat.age":1,_id:0})`  
+11.Projete apenas os animais dos italianos. Devem ser listados os animais com nome e idade. Não mostre o identificado do mongo  (ObjectId)  
+`db.italians.find( {"$or":[ {dog:{$exists:true}} , {cat:{$exists:true}}]} ,{"dog.name":1,"dog.age":1,"cat.name":1,"cat.age":1,_id:0})`  
+
 12.Quais são as 5 pessoas mais velhas com sobrenome Rossi?  
 `db.italians.aggregate({ "$match": { "surname": "Rossi" } },{"$sort":{age:-1}},{"$limit":5})`
 
 13.Crie um italiano que tenha um leão como animal de estimação. Associe um nome e idade ao bichano 
-
-`post = {"firstname" : "Forest", "surname" : "Gump",  "lion":{"lion.name":"Simba","lion.age":2}} 
- db.italians.insert(post)`
+`post = {"firstname" : "Forest", "surname" : "Gump",  "lion":{"lion.name":"Simba","lion.age":2}}`   
+`db.italians.insert(post)`  
 
 14.Infelizmente o Leão comeu o italiano. Remova essa pessoa usando o Id.  
 `db.italians.remove({"_id":ObjectId("5e97e388d2c26f4d70ee5b3b")})`
 
 15.Passou um ano. Atualize a idade de todos os italianos e dos bichanos em 1. 
-
 `db.italians.update({},{"$inc":{"age":1,"dog.age":1,"cat.age":1}},{multi:true})`
 
 16.O Corona Vírus chegou na Itália e misteriosamente atingiu pessoas somente com gatos e de 66 anos. Remova esses italianos.  
 `db.italians.remove({"cat":{$exists:true}, "age":66})`  
 
-17.Utilizando o framework agregate, liste apenas as pessoas com nomes iguais a sua respectiva mãe e que tenha gato ou cachorro. 
+17.Utilizando o framework agreggate, liste apenas as pessoas com nomes iguais a sua respectiva mãe e que tenha gato ou cachorro.
+
+`db.italians.aggregate([ {'$match': { mother: { $exists: 1},dog:{$exists:true},cat:{$exists:true} }}, 
+                         {'$project': { "firstname": 1, "mother": 1, "isEqual": { "$cmp": ["$firstname","$mother.firstname"]} }},                                {'$match': {"isEqual": 0}}
+                       ])`
 
 18.Utilizando aggregate framework, faça uma lista de nomes única de nomes. Faça isso usando apenas o primeiro nome  
 19.Agora faça a mesma lista do item acima, considerando nome completo.  
