@@ -84,10 +84,14 @@ Contagem: `db.italians.find({"dog":{$exists:true,$ne:null},"age":{"$gte":12, "$l
 
 17.Utilizando o framework agreggate, liste apenas as pessoas com nomes iguais a sua respectiva mãe e que tenha gato ou cachorro.
 `db.italians.aggregate([ {'$match': { mother: { $exists: 1},$or:[{dog:{$exists:true}},{cat:{$exists:true}}]}}, 
-                         {'$project': { "firstname": 1, "mother": 1, "isEqual": { "$cmp": ["$firstname","$mother.firstname"]} }},                                {'$match': {"isEqual": 0}}
-                       ])`  
+                         {'$project': { "firstname": 1, "mother": 1, "isEqual": { "$cmp": ["$firstname","$mother.firstname"]} }},                                {'$match': {"isEqual": 0}},
+                         {$group : { _id : "$firstname" } },
+                         {$sort : { "_id":1} }
+                       ])` 
 
 18.Utilizando aggregate framework, faça uma lista de nomes única de nomes. Faça isso usando apenas o primeiro nome 
-Refazer:::::`db.italians.aggregate([{$group:{_id:"firstname"}}])`
+`db.italians.aggregate( [ { $group : { _id : "$firstname" } },{$sort : { "_id":1} } ] )`  
+
 19.Agora faça a mesma lista do item acima, considerando nome completo.  
-20.Procure pessoas que gosta de Banana ou Maçã, tenham cachorro ou gato, mais de 20 e menos de 60 anos.  
+`db.italians.aggregate( [ {$group:{_id:{firstname:"$firstname", surname:"$surname"}}} , {$sort:{"_id.firstname":1,"_id.surname":1 }}] )`  
+20.Procure pessoas que gostam de Banana ou Maçã, tenham cachorro ou gato, mais de 20 e menos de 60 anos.  
