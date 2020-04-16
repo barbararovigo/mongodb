@@ -57,13 +57,22 @@ Contagem: `db.italians.find({"dog":{$exists:true,$ne:null},"age":{"$gte":12, "$l
 8.Liste todas as pessoas mais novas que seus respectivos gatos. 
 `db.italians.find({$expr:{"$lt":["$age","$cat.age"]}})`  
 
-9.Liste as pessoas que tem o mesmo nome que seu bichano (gatou ou cachorro)  
+9.Liste as pessoas que tem o mesmo nome que seu bichano (gato ou cachorro)  
+`db.italians.find({"$or":[{$expr:{"$eq":["$firstname","$dog.name"]}},{$expr:{"$eq":["$firstname","$cat.name"]}}]})`  
 
+10.Projete apenas o nome e sobrenome das pessoas com tipo de sangue de fator RH negativo 
+`db.italians.find({"bloodType":{"$in":["AB-","A-", "O-","B-"]}},{firstname:1,surname:1,_id:0})`  
 
-10.Projete apenas o nome e sobrenomedas pessoas com tipo de sangue de fator RH negativo  
-11.Projete apenas os animais dos italianos. Devem ser listados os animais com nome e idade. Não mostre o identificado do mongo  (ObjectId)  
+11.Projete apenas os animais dos italianos. Devem ser listados os animais com nome e idade. Não mostre o identificado do mongo  (ObjectId) 
+ `db.italians.find( {"$or":[ {dog:{$exists:true}} , {cat:{$exists:true}}]} ,{"dog.name":1,"dog.age":1,"cat.name":1,"cat.age":1,_id:0})`  
 12.Quais são as 5 pessoas mais velhas com sobrenome Rossi?  
-13.Crie um italiano que tenha um leão como animal de estimação. Associe um nome e idade ao bichano  
+`db.italians.aggregate({ "$match": { "surname": "Rossi" } },{"$sort":{age:-1}},{"$limit":5})`
+
+13.Crie um italiano que tenha um leão como animal de estimação. Associe um nome e idade ao bichano 
+
+`post = {"firstname" : "Forest", "surname" : "Gump",  "lion":{"lion.name":"Simba","lion.age":2}} 
+ db.italians.insert(post)`
+
 14.Infelizmente o Leão comeu o italiano. Remova essa pessoa usando o Id.  
 15.Passou um ano. Atualize a idade de todos os italianos e dos bichanos em 1.  
 16.O Corona Vírus chegou na Itália e misteriosamente atingiu pessoas somente com gatos e de 66 anos. Remova esses italianos.  
