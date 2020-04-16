@@ -97,4 +97,16 @@ Contagem: `db.italians.find({"dog":{$exists:true,$ne:null},"age":{"$gte":12, "$l
 20.Procure pessoas que gostam de Banana ou Maçã, tenham cachorro ou gato, mais de 20 e menos de 60 anos.  
 `db.italians.aggregate([ {'$match': { favFruits:{"$in":["Banana", "Maçã"]},
                                       $or:[{dog:{$exists:true}},{cat:{$exists:true}}],
-                                      age:{"$gt":20, "$lt":60}}}])` 
+                                      age:{"$gt":20, "$lt":60}}}])`   
+                                      
+Exercício3 - Stockbrokers  
+
+1.Liste as ações com profit acima de 0.5 (limite a 10 o resultado)  
+2.Liste as ações com perdas (limite a 10 novamente)  
+3.Liste as 10 ações mais rentáveis   
+4.Qual foi o setor mais rentável?  
+5.Ordene as ações pelo profit e usando um cursor, liste as ações.  
+6.Renomeie o campo “Profit Margin” para apenas “profit”.  
+7.Agora liste apenas a empresa e seu respectivo resultado  
+8.Analise as ações. É uma bola de cristal na sua mão... Quais as três ações você investiria?  
+9.Liste as ações agrupadas por setor  
