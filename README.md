@@ -55,8 +55,7 @@ Contagem: `db.italians.find({"dog":{$exists:true,$ne:null},"age":{"$gte":12, "$l
 `db.italians.find({$and:[{$where:"this.cat"} , { $where:"this.dog"}]})`  
 
 8.Liste todas as pessoas mais novas que seus respectivos gatos. 
-`db.italians.find({
-"$lt":["$age","$cat.age"]}})`  
+`db.italians.find({$expr:{"$lt":["$age","$cat.age"]}})`  
 
 9.Liste as pessoas que tem o mesmo nome que seu bichano (gatou ou cachorro)  
 
