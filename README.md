@@ -74,6 +74,8 @@ Contagem: `db.italians.find({"dog":{$exists:true,$ne:null},"age":{"$gte":12, "$l
  db.italians.insert(post)`
 
 14.Infelizmente o Leão comeu o italiano. Remova essa pessoa usando o Id.  
+`db.italians.remove({"_id":ObjectId("5e97e388d2c26f4d70ee5b3b")})`
+
 15.Passou um ano. Atualize a idade de todos os italianos e dos bichanos em 1.  
 16.O Corona Vírus chegou na Itália e misteriosamente atingiu pessoas somente com gatos e de 66 anos. Remova esses italianos.  
 17.Utilizando o framework agregate, liste apenas as pessoas com nomes iguais a sua respectiva mãe e que tenha gato ou cachorro.  
