@@ -82,7 +82,7 @@ Contagem: `db.italians.find({"dog":{$exists:true,$ne:null},"age":{"$gte":12, "$l
 16.O Corona Vírus chegou na Itália e misteriosamente atingiu pessoas somente com gatos e de 66 anos. Remova esses italianos.  
 `db.italians.remove({"cat":{$exists:true}, "age":66})`  
 
-17.Utilizando o framework agreggate, liste apenas as pessoas com nomes iguais a sua respectiva mãe e que tenha gato ou cachorro.
+17.Utilizando o framework agreggate, liste apenas as pessoas com nomes iguais a sua respectiva mãe e que tenha gato ou cachorro.  
 `db.italians.aggregate([ {'$match': { mother: { $exists: 1},$or:[{dog:{$exists:true}},{cat:{$exists:true}}]}}, 
                          {'$project': { "firstname": 1, "mother": 1, "isEqual": { "$cmp": ["$firstname","$mother.firstname"]} }},                                {'$match': {"isEqual": 0}},
                          {$group : { _id : "$firstname" } },
@@ -94,4 +94,8 @@ Contagem: `db.italians.find({"dog":{$exists:true,$ne:null},"age":{"$gte":12, "$l
 
 19.Agora faça a mesma lista do item acima, considerando nome completo.  
 `db.italians.aggregate( [ {$group:{_id:{firstname:"$firstname", surname:"$surname"}}} , {$sort:{"_id.firstname":1,"_id.surname":1 }}] )`  
-20.Procure pessoas que gostam de Banana ou Maçã, tenham cachorro ou gato, mais de 20 e menos de 60 anos.  
+20.Procure pessoas que gostam de Banana ou Maçã, tenham cachorro ou gato, mais de 20 e menos de 60 anos.
+`db.italians.aggregate([ {'$match': { favFruits:{"$in":["Banana", "Maçã"]},
+                                      $or:[{dog:{$exists:true}},{cat:{$exists:true}}],
+                                      age:{"$gt":20, "$lt":60}
+                                      }}])` 
