@@ -93,9 +93,8 @@ Contagem: `db.italians.find({"dog":{$exists:true,$ne:null},"age":{"$gte":12, "$l
 `db.italians.aggregate( [ { $group : { _id : "$firstname" } },{$sort : { "_id":1} } ] )`  
 
 19.Agora faça a mesma lista do item acima, considerando nome completo.  
-`db.italians.aggregate( [ {$group:{_id:{firstname:"$firstname", surname:"$surname"}}} , {$sort:{"_id.firstname":1,"_id.surname":1 }}] )`  
-20.Procure pessoas que gostam de Banana ou Maçã, tenham cachorro ou gato, mais de 20 e menos de 60 anos.
+`db.italians.aggregate( [ {$group:{_id:{firstname:"$firstname", surname:"$surname"}}} , {$sort:{"_id.firstname":1,"_id.surname":1 }}] )`    
+20.Procure pessoas que gostam de Banana ou Maçã, tenham cachorro ou gato, mais de 20 e menos de 60 anos.  
 `db.italians.aggregate([ {'$match': { favFruits:{"$in":["Banana", "Maçã"]},
                                       $or:[{dog:{$exists:true}},{cat:{$exists:true}}],
-                                      age:{"$gt":20, "$lt":60}
-                                      }}])` 
+                                      age:{"$gt":20, "$lt":60}}}])` 
