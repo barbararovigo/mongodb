@@ -84,7 +84,7 @@ Contagem: `db.italians.find({"dog":{$exists:true,$ne:null},"age":{"$gte":12, "$l
 
 17.Utilizando o framework agreggate, liste apenas as pessoas com nomes iguais a sua respectiva mãe e que tenha gato ou cachorro.
 
-`db.italians.aggregate([ {'$match': { mother: { $exists: 1},dog:{$exists:true},cat:{$exists:true} }}, 
+`db.italians.aggregate([ {'$match': { mother: { $exists: 1},$or:[{dog:{$exists:true}},{cat:{$exists:true}}]}}, 
                          {'$project': { "firstname": 1, "mother": 1, "isEqual": { "$cmp": ["$firstname","$mother.firstname"]} }},                                {'$match': {"isEqual": 0}}
                        ])`
 
