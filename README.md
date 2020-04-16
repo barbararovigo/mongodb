@@ -55,9 +55,12 @@ Contagem: `db.italians.find({"dog":{$exists:true,$ne:null},"age":{"$gte":12, "$l
 `db.italians.find({$and:[{$where:"this.cat"} , { $where:"this.dog"}]})`  
 
 8.Liste todas as pessoas mais novas que seus respectivos gatos. 
-
+`db.italians.find({
+"$lt":["$age","$cat.age"]}})`  
 
 9.Liste as pessoas que tem o mesmo nome que seu bichano (gatou ou cachorro)  
+
+
 10.Projete apenas o nome e sobrenomedas pessoas com tipo de sangue de fator RH negativo  
 11.Projete apenas os animais dos italianos. Devem ser listados os animais com nome e idade. Não mostre o identificado do mongo  (ObjectId)  
 12.Quais são as 5 pessoas mais velhas com sobrenome Rossi?  
