@@ -110,3 +110,9 @@ Exercício3 - Stockbrokers
 7.Agora liste apenas a empresa e seu respectivo resultado  
 8.Analise as ações. É uma bola de cristal na sua mão... Quais as três ações você investiria?  
 9.Liste as ações agrupadas por setor  
+
+Exercício 4 –FraudenaEnron!
+
+1.Liste as pessoas que enviaram e-mails (de forma distinta, ou seja, sem repetir). Quantas pessoas são?  
+
+2.Contabilize quantos e-mails tem a palavra “fraud”  
