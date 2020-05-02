@@ -102,11 +102,28 @@ Contagem: `db.italians.find({"dog":{$exists:true,$ne:null},"age":{"$gte":12, "$l
 Exercício3 - Stockbrokers  
 
 1.Liste as ações com profit acima de 0.5 (limite a 10 o resultado)  
-2.Liste as ações com perdas (limite a 10 novamente)  
-3.Liste as 10 ações mais rentáveis   
+'db.stocks.find({"Profit Margin":{"$gt":0.5}}).limit(10)'
+ 
+2.Liste as ações com perdas (limite a 10 novamente)   
+'db.stocks.find({"Profit Margin":{"$lt":0}}).limit(10)'  
+
+3.Liste as 10 ações mais rentáveis    
+'db.stocks.find({"Profit Margin":{$exists:true}}).sort({"Profit Margin":-1}).limit(10)'    
+
 4.Qual foi o setor mais rentável?  
+`db.stocks.aggregate([
+                        {$group:{_id:"$Sector", total:{$sum:"$Profit Margin"}}},
+                        {$sort:{"total":-1}},
+                        {$limit:1}
+                      ])`  
+                               
 5.Ordene as ações pelo profit e usando um cursor, liste as ações.  
-6.Renomeie o campo “Profit Margin” para apenas “profit”.  
+`var cursor = db.stocks.find({"Profit Margin":{$exists:true}}).sort({"Profit Margin":-1});
+cursor.forEach(function(x){printjson(x)})`
+
+6.Renomeie o campo “Profit Margin” para apenas “profit”. 
+`db.stocks.updateMany( {}, { $rename: { "Profit Margin": "profit" } } )`
+
 7.Agora liste apenas a empresa e seu respectivo resultado  
 8.Analise as ações. É uma bola de cristal na sua mão... Quais as três ações você investiria?  
 9.Liste as ações agrupadas por setor  
