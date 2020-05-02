@@ -102,13 +102,13 @@ Contagem: `db.italians.find({"dog":{$exists:true,$ne:null},"age":{"$gte":12, "$l
 Exercício3 - Stockbrokers  
 
 1.Liste as ações com profit acima de 0.5 (limite a 10 o resultado)  
-'db.stocks.find({"Profit Margin":{"$gt":0.5}}).limit(10)'
+`db.stocks.find({"Profit Margin":{"$gt":0.5}}).limit(10)`  
  
 2.Liste as ações com perdas (limite a 10 novamente)   
-'db.stocks.find({"Profit Margin":{"$lt":0}}).limit(10)'  
+`db.stocks.find({"Profit Margin":{"$lt":0}}).limit(10)`  
 
 3.Liste as 10 ações mais rentáveis    
-'db.stocks.find({"Profit Margin":{$exists:true}}).sort({"Profit Margin":-1}).limit(10)'    
+`db.stocks.find({"Profit Margin":{$exists:true}}).sort({"Profit Margin":-1}).limit(10)`    
 
 4.Qual foi o setor mais rentável?  
 `db.stocks.aggregate([
@@ -119,7 +119,7 @@ Exercício3 - Stockbrokers
                                
 5.Ordene as ações pelo profit e usando um cursor, liste as ações.  
 `var cursor = db.stocks.find({"Profit Margin":{$exists:true}}).sort({"Profit Margin":-1});
-cursor.forEach(function(x){printjson(x)})`
+cursor.forEach(function(x){printjson(x)})`  
 
 6.Renomeie o campo “Profit Margin” para apenas “profit”. 
 `db.stocks.updateMany( {}, { $rename: { "Profit Margin": "profit" } } )`  
@@ -134,8 +134,12 @@ cursor.forEach(function(x){printjson(x)})`
 9.Liste as ações agrupadas por setor  
 `db.stocks.aggregate( [ {$group:{_id:{Sector:"$Sector", Ticker:"$Ticker"}}}, {$sort:{"_id.Sector":1,"_id.Ticker":1 }}] )`   
 
-Exercício 4 –FraudenaEnron!
+Exercício 4 –FraudenaEnron!  
 
-1.Liste as pessoas que enviaram e-mails (de forma distinta, ou seja, sem repetir). Quantas pessoas são?  
+1.Liste as pessoas que enviaram e-mails (de forma distinta, ou seja, sem repetir). Quantas pessoas são? 
+Resposta: 2.200 pessoas 
+`db.enron.aggregate([{$group:{_id:"$sender"}}])`
+`db.enron.distinct("sender").length`
 
-2.Contabilize quantos e-mails tem a palavra “fraud”  
+2.Contabilize quantos e-mails tem a palavra “fraud” 
+`db.enron.find( {text: /fraud/}).count()`
