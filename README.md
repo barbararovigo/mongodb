@@ -122,10 +122,13 @@ Exercício3 - Stockbrokers
 cursor.forEach(function(x){printjson(x)})`
 
 6.Renomeie o campo “Profit Margin” para apenas “profit”. 
-`db.stocks.updateMany( {}, { $rename: { "Profit Margin": "profit" } } )`
+`db.stocks.updateMany( {}, { $rename: { "Profit Margin": "profit" } } )`  
 
-7.Agora liste apenas a empresa e seu respectivo resultado  
+7.Agora liste apenas a empresa e seu respectivo resultado   
+`db.stocks.find({}, {Company:1, profit:1, _id:0})`  
+
 8.Analise as ações. É uma bola de cristal na sua mão... Quais as três ações você investiria?  
+
 9.Liste as ações agrupadas por setor  
 
 Exercício 4 –FraudenaEnron!
