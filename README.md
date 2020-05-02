@@ -127,9 +127,12 @@ cursor.forEach(function(x){printjson(x)})`
 7.Agora liste apenas a empresa e seu respectivo resultado   
 `db.stocks.find({}, {Company:1, profit:1, _id:0})`  
 
-8.Analise as ações. É uma bola de cristal na sua mão... Quais as três ações você investiria?  
+8.Analise as ações. É uma bola de cristal na sua mão... Quais as três ações você investiria? 
+'Certamente não investiria em ações porque desconheço seu funcionamento...mas arrisco escolher empresas com maior dividendo'  
+'db.stocks.find({},{Company:1, profit:1,"Dividend Yield":1, _id:0}).sort({"Dividend Yield":-1}).limit(3)'     
 
 9.Liste as ações agrupadas por setor  
+`db.stocks.aggregate( [ {$group:{_id:{Sector:"$Sector", Ticker:"$Ticker"}}}, {$sort:{"_id.Sector":1,"_id.Ticker":1 }}] )`   
 
 Exercício 4 –FraudenaEnron!
 
